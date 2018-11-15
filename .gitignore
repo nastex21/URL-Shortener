@@ -61,3 +61,5 @@ typings/
 .next
 test.js
 package.json
+package-lock.json
+package-lock.json
