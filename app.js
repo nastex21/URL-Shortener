@@ -4,9 +4,9 @@ const app = express()
 const port = 3000
 const bodyParser = require('body-parser')
 var dns = require('dns')
-const mongoose = require('mongoose');
+require("./src/database")
 var cors = require('cors');
-var schema = mongoose.Schema;
+//var schema = mongoose.Schema;
 var url;
 
 app.use(cors());
@@ -17,14 +17,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/public', express.static(process.cwd() + '/public'));
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true
-});
 
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
-
+/* 
 //convert from url to hostname http(s)://www.google.com -> google.com
 function extractHostname(url) {
   var hostname;
@@ -56,44 +53,49 @@ app.post('/api/shorturl/new', function (req, res) {
   });
 })
 
-var db = mongoose.connection;
 
-//create schema 
-var urlSchema = new schema({
-  id: Number,
-  urlAddress: String
-})
-
-//create model
-const urlModel = mongoose.model('urlModel', urlSchema);
-
-var createAndSaveURL = function (done) {
+var createAndSaveURL = function (idNum, url) {
   var freecodecamp = new urlModel({
-    id: 1,
-    urlAddress: "freecodecamp.com"
-  })
+    id: idNum,
+    urlAddress: url
+  });
 
   freecodecamp.save(function (err, data) {
-    if (err){
+    if (err) {
       return console.error(err);
     } else {
       return null, data
     }
-  })
-}
-
-var findPeopleByName = function(idNum) {
-
-  urlModel.find({id: idNum}, function(err, data){
-    if (err){
-      return console.error(err);
-    } else {
-      return console.log(data)
-    }
-  })
-
+  });
 };
 
-console.log(findPeopleByName(1))
+var findById = function (idNum) {
+
+  urlModel.find({
+    id: idNum
+  }, function (err, data) {
+    if (err) {
+      return console.error(err);
+    } else {
+      return null, data;
+    }
+  });
+};
+
+
+
+var removeById = function (idNum) {
+
+  urlModel.deleteMany({id: idNum}, function (err, data) {
+    if (err) {
+      return console.error(err);
+    } else {
+      return null, data;
+    }
+  });
+};
+
+ */
+
 
 app.listen(port, () => console.log("It's listening"))
