@@ -16,16 +16,17 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/public', express.static(process.cwd() + '/public'));
+mongoose.connect(process.env.MONGO_URI,  { useNewUrlParser: true }); 
 
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
+//convert from url to hostname http(s)://www.google.com -> google.com
 function extractHostname(url) {
   var hostname;
   //find & remove protocol (http, ftp, etc.) and get hostname
 
-mongoose.connect(process.env.MONGO_URI,  { useNewUrlParser: true }); 
   if (url.indexOf("//") > -1) {
     hostname = url.split('/')[2];
   } else {
@@ -40,20 +41,18 @@ mongoose.connect(process.env.MONGO_URI,  { useNewUrlParser: true });
   return hostname;
 }
 
-
+//grab the user input
 app.post('/api/shorturl/new', function (req, res) {
   userUrl = req.body.url;
 
   var url = extractHostname(userUrl);
 
   var w3 = dns.lookup(url, function (err, addresses, family) {
-    console.log(addresses);
+    return addresses;
   });
-})
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true
-});
+  
+})
 
 var db = mongoose.connection;
 
