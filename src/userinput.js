@@ -5,6 +5,12 @@ const router = express.Router();
 const { findByURL } = require('./findByURL')
 const { findByID } = require('./findByID');
 const { createURLEntry } = require("./createEntry");
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 //grab the user input
 router.route('/shorturl/new').post(function (req, res) {
@@ -28,20 +34,8 @@ router.route('/shorturl/new').post(function (req, res) {
         "error": "invalid URL"
       });
     } else {
-      if (findByURL(userURL) == undefined) {
-        console.log("undefined again");
-        //var newID = findUnusedID();
-        //console.log(findByURL(userURL));
-        //console.log(newID);
-        //createURLEntry(0, userURL);
-
-      } else if (findByURL(userURL) === []){
-        console.log("empty array");
-      } else {
-        console.log("ELSE");
-        console.log(findByURL(userURL))
-        console.log("URL already in database!");
-      }
+      console.log(typeof userURL);
+      console.log(findByURL(userURL));
     }
   })
 });

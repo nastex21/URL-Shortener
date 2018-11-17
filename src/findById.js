@@ -8,7 +8,7 @@ var findByID = function (idNum) {
         return console.error(err);
       } else {
         console.log("findByID");
-        return console.log(data);
+        return data;
       }
     });
   };
