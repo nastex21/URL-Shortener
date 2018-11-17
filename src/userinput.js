@@ -10,8 +10,14 @@ router.route('/shorturl/new').post( function (req, res) {
     var url = extractHostname(userUrl);
   
     var w3 = dns.lookup(url, function (err, addresses, family) {
-      console.log(addresses);
-      return addresses;
+      if (err){
+        res.json({
+          "error":"invalid URL"
+        })
+      } else {
+        console.log(addresses);
+        return addresses;
+      }
     });
   });
 
