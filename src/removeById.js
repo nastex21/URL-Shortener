@@ -4,7 +4,7 @@ var removeById = function (idNum) {
       if (err) {
         return console.error(err);
       } else {
-        return null, data;
+        return data;
       }
     });
   };

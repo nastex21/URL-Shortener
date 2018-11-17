@@ -8,34 +8,41 @@ const { createURLEntry } = require("./createEntry");
 
 //grab the user input
 router.route('/shorturl/new').post(function (req, res) {
-  var userUrl = req.body.url;
-  console.log(userUrl)
-  var url = extractHostname(userUrl);
+  var userURL = req.body.url;
+  var url = extractHostname(userURL);
+
+  var i = 0;
+
+  function findUnusedID() {
+    if (findByID(i) == undefined) {
+      return i;
+    } else {
+      i++;
+      findUnusedID();
+    }
+  }
 
   var w3 = dns.lookup(url, function (err, addresses, family) {
     if (err) {
       res.json({
         "error": "invalid URL"
-      })
+      });
     } else {
-      if (findByURL(userUrl) == null || undefined)  {
-        console.log(findByURL(userUrl))
-        var i = 0;
+      if (findByURL(userURL) == undefined) {
+        console.log("undefined again");
+        //var newID = findUnusedID();
+        //console.log(findByURL(userURL));
+        //console.log(newID);
+        //createURLEntry(0, userURL);
 
-      function findUnusedID() {
-        if (findByID(i) == undefined) {
-          return i;
-        } else {
-          i++;
-          findUnusedID();
-        }
+      } else if (findByURL(userURL) === []){
+        console.log("empty array");
+      } else {
+        console.log("ELSE");
+        console.log(findByURL(userURL))
+        console.log("URL already in database!");
       }
-      var newID = findUnusedID();
-      createURLEntry(newID, userUrl);
-        } else {
-          console.log("URL already in database!")
-        }
-    } 
+    }
   })
 });
 

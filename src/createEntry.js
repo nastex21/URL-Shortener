@@ -12,7 +12,7 @@ var createURLEntry = function (idNum, url) {
         return console.error(err);
       } else {
         console.log("Success! Entry added!")
-        return null, data
+        return data;
       }
     });
   };
