@@ -1,25 +1,18 @@
-//convert from url to hostname http(s)://www.google.com -> google.com
-var url;
+const dns = require('dns');
+const { extractHostname } = require("./extracthostname");
+const express = require('express');
+const router = express.Router();
 
-function extractHostname(url){
-    console.log('works')
-    var hostname;
-    //find & remove protocol (http, ftp, etc.) and get hostname
+//grab the user input
+router.route('/shorturl/new').post( function (req, res) {
+    var userUrl = req.body.url;
   
-    if (url.indexOf("//") > -1) {
-      hostname = url.split('/')[2];
-    } else {
-      hostname = url.split('/')[0];
-    }
+    var url = extractHostname(userUrl);
   
-    //find & remove port number
-    hostname = hostname.split(':')[0];
-    //find & remove "?"
-    hostname = hostname.split('?')[0];
-  
-    return hostname;
-}
+    var w3 = dns.lookup(url, function (err, addresses, family) {
+      console.log(addresses);
+      return addresses;
+    });
+  });
 
-module.exports = {
-    extractHostname: extractHostname
-}
+module.exports = router;

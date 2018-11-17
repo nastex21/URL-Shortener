@@ -1,41 +1,36 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
-const port = 3000
-var cors = require('cors');
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const port = 3000;
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const UserInput = require('./src/userinput');
+
+
 require("./src/database") //connect to the database when initialized
 let URLModel = ('./src/urlmodel') //schema for urls in the database
-var url
-const { extractHostname } = require("./src/userinput")
-const bodyParser = require('body-parser')
-const dns = require('dns')
+
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(
+  () => {console.log('Database is connected') },
+  err => { console.log('Can not connect to the database'+ err)}
+);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-app.use(cors());
-
-
+//static folder where css and other content are stored and available
 app.use('/public', express.static(process.cwd() + '/public'));
 
-
+//home page, sends /views/index.html
 app.get('/', function (req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
 });
 
-//grab the user input
-app.post('/api/shorturl/new', function (req, res) {
-  var userUrl = req.body.url;
+//routes to /api and then the UserInput module handles the post data
+app.use('/api', UserInput);
 
-  url = extractHostname(userUrl);
-
-  var w3 = dns.lookup(url, function (err, addresses, family) {
-    console.log(addresses)
-    return addresses;
-  });
-})
 /* 
 
 
