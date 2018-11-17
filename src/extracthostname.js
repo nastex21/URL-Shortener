@@ -1,7 +1,6 @@
 //convert from url to hostname http(s)://www.google.com -> google.com
 
 function extractHostname(url){
-    console.log('works')
     var hostname;
     //find & remove protocol (http, ftp, etc.) and get hostname
   

@@ -1,9 +1,9 @@
 var urlModel = require('./urlmodel')
 
-var findByID = function (idNum) {
-  console.log("findByID is running")
+var findByURL = function (url) {
+  console.log("findByURL is running")
     urlModel.find({
-      id: idNum,
+      urlAddress: url
     }, function (err, data) {
       if (err) {
         return console.error(err);
@@ -14,5 +14,5 @@ var findByID = function (idNum) {
   };
 
   module.exports = {
-    findByID: findByID
+    findByURL: findByURL
 }

@@ -1,6 +1,6 @@
 var removeById = function (idNum) {
 
-    urlModel.deleteMany({id: idNum}, function (err, data) {
+    urlModel.deleteOne({id: idNum}, function (err, data) {
       if (err) {
         return console.error(err);
       } else {

@@ -29,4 +29,5 @@ app.get('/', function (req, res) {
 //routes to /api and then the UserInput module handles the post data
 app.use('/api', UserInput);
 
+//the server is running
 app.listen(port, () => console.log("It's listening"))
