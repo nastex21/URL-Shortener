@@ -6,4 +6,4 @@ var urlSchema = new schema({
     urlAddress: String
   });
 
-  module.exports = mongoose.model('urlModel', urlSchema);
+module.exports = mongoose.model('urlModel', urlSchema);
