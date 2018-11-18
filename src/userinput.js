@@ -34,8 +34,10 @@ router.route('/shorturl/new').post(function (req, res) {
         "error": "invalid URL"
       });
     } else {
-      console.log(typeof userURL);
-      console.log(findByURL(userURL));
+      //createURLEntry(0, userURL);
+      findByURL(userURL, function(err, urlFound){
+        console.log(urlFound);
+      });
     }
   })
 });
