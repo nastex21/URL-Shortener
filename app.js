@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
 );
-
+mongoose.set('useCreateIndex', true);
 //removeMany(0);
 
 app.use(bodyParser.json())

@@ -1,9 +1,9 @@
 var URLModel = require('./urlmodel') //schema for urls in the database
+
 console.log("createEntry is running")
 //create an entry in the database
-var createURLEntry = function (idNum, url) {
+var createURLEntry = function (url) {
     var newEntry = new URLModel({
-      id: idNum,
       urlAddress: url
     });
   
