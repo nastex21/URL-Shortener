@@ -1,6 +1,6 @@
 var urlModel = require('./urlmodel')
 
-module.exports.findByURL = function findUser(url, callback){
+module.exports.findByURL = function(url, callback){
   urlModel.findOne({urlAddress: url}, function(err, data){
       if(err){
           return callback(err);
