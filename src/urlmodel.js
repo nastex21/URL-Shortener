@@ -5,7 +5,8 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 //create schema 
 var urlSchema = new schema({
   id: Number,
-  urlAddress: String
+  urlAddress: String,
+  short_url: String
 });
 
 

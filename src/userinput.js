@@ -1,10 +1,18 @@
 const dns = require('dns');
-const { extractHostname } = require("./extracthostname");
+const {
+  extractHostname
+} = require("./extracthostname");
 const express = require('express');
 const router = express.Router();
-const { findByURL } = require('./findByURL');
-const { findByID } = require('./findById');
-const { createURLEntry } = require("./createEntry");
+const {
+  findByURL
+} = require('./findByURL');
+const {
+  createShortURL
+} = require('./createShortURL')
+const {
+  createURLEntry
+} = require("./createEntry");
 const bodyParser = require('body-parser');
 
 router.use(bodyParser.json())
@@ -24,27 +32,26 @@ router.route('/shorturl/new').post(function (req, res) {
       });
     } else {
       //createURLEntry(userURL);
-        findByURL(userURL, function(error, data) {
-         if(data == undefined){
-           createURLEntry(userURL);
-           console.log("undefined")
-         } else {
-           console.log("already in database")
-           console.log(data);
-         }
-     });  
 
-  /*    findByID(4, function(error, data){
-      if(data == undefined){
-        //createURLEntry(userURL);
-        console.log("undefined")
-      } else {
-        console.log("already in database")
-        console.log(data);
-      }
-     }) */
+      findByURL(userURL, function (error, data) {
+        if (data == undefined) {
+          createURLEntry(userURL);
+          createShortURL(userURL, function (err, data) {
+              console.log(data);
+            });
+          console.log("undefined")
+        } else {
+          console.log("already in database")
+          console.log("Id: " + data.id);
+          res.json({
+            "original_url": userURL,
+            "short_url": data.id
+          })
+        }
+      })
     }
   })
-});
+})
+
 
 module.exports = router;

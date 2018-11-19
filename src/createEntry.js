@@ -1,4 +1,4 @@
-var URLModel = require('./urlmodel') //schema for urls in the database
+var URLModel = require('./urlmodel'); //schema for urls in the database
 
 console.log("createEntry is running")
 //create an entry in the database
@@ -14,7 +14,7 @@ var createURLEntry = function (url) {
         console.log("Success! Entry added!")
         return data;
       }
-    });
+    })
   };
 
 module.exports = {
