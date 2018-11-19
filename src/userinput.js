@@ -27,17 +27,22 @@ router.route('/shorturl/new').post(function (req, res) {
         findByURL(userURL, function(error, data) {
          if(data == undefined){
            createURLEntry(userURL);
+           console.log("undefined")
          } else {
+           console.log("already in database")
            console.log(data);
          }
      });  
-/*      findByID(0, function(error, data){
-        if (error){
-          console.log(error)
-        } else {
-          console.log(data);
-        }
-     }); */
+
+  /*    findByID(4, function(error, data){
+      if(data == undefined){
+        //createURLEntry(userURL);
+        console.log("undefined")
+      } else {
+        console.log("already in database")
+        console.log(data);
+      }
+     }) */
     }
   })
 });

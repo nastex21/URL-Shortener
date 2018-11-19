@@ -9,12 +9,22 @@ const { removeMany } = require('./src/removeMany');
 
 
 //connect to database
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(
+ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(
   () => {console.log('Database is connected') },
   err => { console.log('Can not connect to the database'+ err)}
 );
-mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true); 
 //removeMany(0);
+
+
+/* //drop db
+mongoose.connect(process.env.MONGO_URI);
+mongoose.set('debug', true);
+mongoose.connection.dropDatabase(error => {
+  console.log(error);
+  process.exit(0);
+}); */
+
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
