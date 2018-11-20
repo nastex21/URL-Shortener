@@ -17,13 +17,13 @@ mongoose.set('useCreateIndex', true);
 //removeMany(0);
 
 
-/* //drop db
-mongoose.connect(process.env.MONGO_URI);
+ //drop db
+/* mongoose.connect(process.env.MONGO_URI);
 mongoose.set('debug', true);
 mongoose.connection.dropDatabase(error => {
   console.log(error);
   process.exit(0);
-}); */
+});  */
 
 
 app.use(bodyParser.json())

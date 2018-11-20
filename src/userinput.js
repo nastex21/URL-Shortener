@@ -23,6 +23,7 @@ router.use(bodyParser.urlencoded({
 //grab the user input
 router.route('/shorturl/new').post(function (req, res) {
   var userURL = req.body.url;
+  console.log(req.body)
   var url = extractHostname(userURL);
 
   var w3 = dns.lookup(url, function (err, addresses, family) {
@@ -36,16 +37,12 @@ router.route('/shorturl/new').post(function (req, res) {
       findByURL(userURL, function (error, data) {
         if (data == undefined) {
           createURLEntry(userURL);
-          createShortURL(userURL, function (err, data) {
-              console.log(data);
-            });
-          console.log("undefined")
         } else {
           console.log("already in database")
-          console.log("Id: " + data.id);
+          console.log("Id: " + data);
           res.json({
             "original_url": userURL,
-            "short_url": data.id
+            "short_url": data.short_url
           })
         }
       })

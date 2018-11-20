@@ -11,4 +11,6 @@ var urlSchema = new schema({
 
 
 urlSchema.plugin(AutoIncrement, {id:'order_seq', inc_field: 'id'});
+module.exports = urlSchema;
 module.exports = mongoose.model('urlModel', urlSchema);
+
