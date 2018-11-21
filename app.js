@@ -6,7 +6,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserInput = require('./src/userinput');
 const URLModel = require('./src/urlmodel');
-const https = require('https');
 
 //connect to database
 mongoose.connect(process.env.MONGO_URI, {
@@ -45,6 +44,7 @@ app.get('/', function (req, res) {
 //routes to /api and then the UserInput module handles the post data
 app.use('/api', UserInput);
 
+//redirect client to url that corresponds with number
 app.get('/api/shorturl/:id', function (req, res) {
 
   var num = req.params.id;
@@ -57,7 +57,6 @@ app.get('/api/shorturl/:id', function (req, res) {
       if (err) {
         console.err(err)
       } else {
-        console.log(data.urlAddress);
         res.redirect(data.urlAddress)
       }
     })
@@ -67,6 +66,7 @@ app.get('/api/shorturl/:id', function (req, res) {
     })
   }
 })
+
 
 //the server is running
 app.listen(port, () => console.log("It's listening"))

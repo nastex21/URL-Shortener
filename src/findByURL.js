@@ -1,5 +1,6 @@
 var urlModel = require('./urlmodel')
 
+//find by URL address to see if it's already in the database
 module.exports.findByURL = function(url, callback){
   urlModel.findOne({urlAddress: url}, function(err, data){
       if(err){

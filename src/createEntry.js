@@ -1,17 +1,19 @@
-var URLModel = require('./urlmodel'); //schema for urls in the database
+const URLModel = require('./urlmodel'); //schema for urls in the database
 
-console.log("createEntry is running")
 //create an entry in the database
 var createURLEntry = function (url, callback) {
 
+  //model for entry
   var newEntry = new URLModel({
     urlAddress: url
   });
 
+  //save and then run function
   newEntry.save().then(function (data) {
     contFunction(data)
     })
 
+    //create the shortened address from the data in the save function
   var contFunction = function(data) {
     var baseHTTP = "http://localhost:3000/api/shorturl/";
     var numID = data.id;

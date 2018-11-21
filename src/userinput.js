@@ -16,12 +16,14 @@ router.route('/shorturl/new').post(function (req, res) {
   var userURL = req.body.url;
   var url = extractHostname(userURL);
 
+  //check the url to see if it's an actual legit website that passes the dns lookup
   var w3 = dns.lookup(url, function (err, addresses, family) {
     if (err) {
       res.json({
         "error": "invalid URL"
       });
     } else {
+      //find if url is in database
       findByURL(userURL, function (error, data) {
         if (data == undefined) {
           createURLEntry(userURL, function(err, data){
@@ -30,11 +32,9 @@ router.route('/shorturl/new').post(function (req, res) {
                 "err": err
               })
             } else {
-              console.log("callback called back to CreateURLENtry");
-              console.log(data);
               res.json({
                 "original_url": data.urlAddress,
-                "short_url": data.short_url
+                "short_url": data.id
               })
             }
           });
