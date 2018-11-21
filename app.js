@@ -66,8 +66,6 @@ app.get('/api/shorturl/:id', function (req, res) {
       error: "Invalid url"
     })
   }
-
-
 })
 
 //the server is running

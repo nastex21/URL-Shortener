@@ -24,7 +24,20 @@ router.route('/shorturl/new').post(function (req, res) {
     } else {
       findByURL(userURL, function (error, data) {
         if (data == undefined) {
-          createURLEntry(userURL);
+          createURLEntry(userURL, function(err, data){
+            if (err){
+              res.json({
+                "err": err
+              })
+            } else {
+              console.log("callback called back to CreateURLENtry");
+              console.log(data);
+              res.json({
+                "original_url": data.urlAddress,
+                "short_url": data.short_url
+              })
+            }
+          });
         } else {
           res.json({
             "original_url": userURL,
