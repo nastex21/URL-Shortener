@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 var schema = mongoose.Schema;
-console.log("urlmodel is running")
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 //create schema 
 var urlSchema = new schema({
   id: Number,
-  urlAddress: String
+  urlAddress: String,
+  short_url: String
 });
 
+urlSchema.plugin(AutoIncrement, {id:'order_seq', inc_field: 'id'});
 module.exports = mongoose.model('urlModel', urlSchema);

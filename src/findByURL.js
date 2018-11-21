@@ -1,18 +1,13 @@
 var urlModel = require('./urlmodel')
 
-var findByURL = function (url) {
-  console.log("findByURL is running")
-    urlModel.find({
-      urlAddress: url
-    }, function (err, data) {
-      if (err) {
-        return console.error(err);
+module.exports.findByURL = function(url, callback){
+  urlModel.findOne({urlAddress: url}, function(err, data){
+      if(err){
+          return callback(err);
+      } else if (data){
+          return callback(null,data);
       } else {
-        return console.log(null, data);
+          return callback();
       }
-    });
-  };
-
-  module.exports = {
-    findByURL: findByURL
+  });
 }

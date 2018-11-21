@@ -2,41 +2,39 @@ const dns = require('dns');
 const { extractHostname } = require("./extracthostname");
 const express = require('express');
 const router = express.Router();
-const { findByURL } = require('./findByURL')
-const { findByID } = require('./findByID');
+const { findByURL } = require('./findByURL');
 const { createURLEntry } = require("./createEntry");
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 //grab the user input
 router.route('/shorturl/new').post(function (req, res) {
-  var userUrl = req.body.url;
-  console.log(userUrl)
-  var url = extractHostname(userUrl);
+  var userURL = req.body.url;
+  var url = extractHostname(userURL);
 
   var w3 = dns.lookup(url, function (err, addresses, family) {
     if (err) {
       res.json({
         "error": "invalid URL"
-      })
+      });
     } else {
-      if (findByURL(userUrl) == null || undefined)  {
-        console.log(findByURL(userUrl))
-        var i = 0;
-
-      function findUnusedID() {
-        if (findByID(i) == undefined) {
-          return i;
+      findByURL(userURL, function (error, data) {
+        if (data == undefined) {
+          createURLEntry(userURL);
         } else {
-          i++;
-          findUnusedID();
+          res.json({
+            "original_url": userURL,
+            "short_url": data.id
+          })
         }
-      }
-      var newID = findUnusedID();
-      createURLEntry(newID, userUrl);
-        } else {
-          console.log("URL already in database!")
-        }
-    } 
+      })
+    }
   })
-});
+})
+
 
 module.exports = router;

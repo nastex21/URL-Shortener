@@ -1,20 +1,28 @@
-var URLModel = require('./urlmodel') //schema for urls in the database
+var URLModel = require('./urlmodel'); //schema for urls in the database
+
 console.log("createEntry is running")
 //create an entry in the database
-var createURLEntry = function (idNum, url) {
+var createURLEntry = function (url) {
+
     var newEntry = new URLModel({
-      id: idNum,
       urlAddress: url
     });
   
-    newEntry.save(function (err, data) {
-      if (err) {
-        return console.error(err);
+  newEntry.save().then(function(data){
+    var baseHTTP = "https://www.test.com/";
+    var numID = data.id;
+    var stringID = numID.toString();
+    var shortURL = baseHTTP + stringID;
+    console.log(shortURL);
+    URLModel.findByIdAndUpdate({_id: data._id}, {short_url: shortURL}, function (err, data){
+      if (err){
+        console.log(err);
       } else {
-        console.log("Success! Entry added!")
-        return null, data
+        return null, data;
       }
-    });
+    })
+  }) 
+
   };
 
 module.exports = {
