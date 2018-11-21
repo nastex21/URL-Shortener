@@ -5,8 +5,6 @@ const port = 3000;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const UserInput = require('./src/userinput');
-const { removeMany } = require('./src/removeMany');
-
 
 //connect to database
  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(
@@ -14,8 +12,6 @@ const { removeMany } = require('./src/removeMany');
   err => { console.log('Can not connect to the database'+ err)}
 );
 mongoose.set('useCreateIndex', true); 
-//removeMany(0);
-
 
  //drop db
 /* mongoose.connect(process.env.MONGO_URI);
