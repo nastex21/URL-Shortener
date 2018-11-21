@@ -17,8 +17,12 @@ var createURLEntry = function (url, callback) {
     var numID = data.id;
     var stringID = numID.toString();
     var shortURL = baseHTTP + stringID;
-    URLModel.findByIdAndUpdate({_id: data._id}, {short_url: shortURL}, {new: true}).then(function(newData){
-      console.log(newData);
+    URLModel.findByIdAndUpdate({_id: data._id}, {short_url: shortURL}, {new: true}, (err, updatedData) =>{
+      if (err){
+        callback(err);
+      } else {
+        callback(null, updatedData);
+      }
     })
   }
 
