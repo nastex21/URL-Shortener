@@ -9,7 +9,7 @@ var createURLEntry = function (url) {
     });
   
   newEntry.save().then(function(data){
-    var baseHTTP = "https://www.test.com/";
+    var baseHTTP = "http://localhost:3000/api/shorturl/";
     var numID = data.id;
     var stringID = numID.toString();
     var shortURL = baseHTTP + stringID;
