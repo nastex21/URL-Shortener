@@ -1,6 +1,6 @@
 Challenge: https://learn.freecodecamp.org/apis-and-microservices/apis-and-microservices-projects/url-shortener-microservice
 
-My Completed Demo Solution: https://fcc-url-shortener-project.glitch.me/
+Demo of my solution and of this repo: https://fcc-url-shortener-project.glitch.me/
 
 CHALLENGE: 
 
