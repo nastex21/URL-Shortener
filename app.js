@@ -24,15 +24,6 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-
-//drop db
-/* mongoose.connect(process.env.MONGO_URI);
-mongoose.set('debug', true);
-mongoose.connection.dropDatabase(error => {
-  console.log(error);
-  process.exit(0);
-});  */
-
 //static folder where css and other content are stored and available
 app.use('/public', express.static(process.cwd() + '/public'));
 
